@@ -1,0 +1,50 @@
+erDiagram
+    User {
+        int id PK
+        str name
+        str email
+        UserRole role "default USER"
+        bool is_active "default True"
+        str bio "nullable, default None"
+    }
+    Product {
+        int id PK
+        str name
+        float price
+        str description "nullable, default None"
+        bool in_stock "default True"
+    }
+    Order {
+        int id PK
+        int user_id FK
+        OrderStatus status "default PENDING"
+        float total
+        str notes "nullable, default None"
+    }
+    OrderItem {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        float unit_price
+    }
+    UserProductLink {
+        int user_id PK,FK
+        int product_id PK,FK
+    }
+    OrderStatus {
+        enum PENDING
+        enum PROCESSING
+        enum COMPLETED
+        enum CANCELLED
+    }
+    UserRole {
+        enum ADMIN
+        enum USER
+        enum GUEST
+    }
+    Order }o--|| User : "user_id"
+    OrderItem }o--|| Order : "order_id"
+    OrderItem }o--|| Product : "product_id"
+    User ||--o{ UserProductLink : "user_id"
+    UserProductLink }o--|| Product : "product_id"

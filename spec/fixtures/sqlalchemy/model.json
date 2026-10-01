@@ -1,0 +1,261 @@
+{
+  "title": "Database ERD",
+  "entities": [
+    {
+      "name": "Author",
+      "table_name": "author",
+      "source": "sqlalchemy",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "created_at",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "updated_at",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "email",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": true,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "bio",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": "None"
+        },
+        {
+          "name": "is_active",
+          "type": "bool",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": "True"
+        }
+      ],
+      "relationships": [
+        {
+          "target": "Post",
+          "type": "many",
+          "attribute": "posts"
+        }
+      ]
+    },
+    {
+      "name": "Post",
+      "table_name": "post",
+      "source": "sqlalchemy",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "created_at",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "updated_at",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "author_id",
+          "type": "int",
+          "primary_key": false,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "author.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "PostStatus",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": "PostStatus.DRAFT"
+        },
+        {
+          "name": "summary",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": "None"
+        }
+      ],
+      "relationships": [
+        {
+          "target": "Author",
+          "type": "one",
+          "attribute": "author"
+        }
+      ]
+    },
+    {
+      "name": "Tag",
+      "table_name": "tag",
+      "source": "sqlalchemy",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "label",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "PostTagLink",
+      "table_name": "post_tag_link",
+      "source": "sqlalchemy",
+      "is_link_table": true,
+      "fields": [
+        {
+          "name": "post_id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "post.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "tag_id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "tag.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    }
+  ],
+  "enums": [
+    {
+      "name": "PostStatus",
+      "values": [
+        "DRAFT",
+        "PUBLISHED",
+        "ARCHIVED"
+      ]
+    }
+  ]
+}

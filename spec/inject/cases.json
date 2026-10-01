@@ -1,0 +1,51 @@
+{
+  "fence": "mermaid",
+  "rendered": "erDiagram\n    User {\n        int id PK\n        str name\n        str email\n    }\n    Order {\n        int id PK\n        int user_id FK\n        float total\n    }\n    Order }o--|| User : \"user_id\"",
+  "region": "\n```mermaid\nerDiagram\n    User {\n        int id PK\n        str name\n        str email\n    }\n    Order {\n        int id PK\n        int user_id FK\n        float total\n    }\n    Order }o--|| User : \"user_id\"\n```\n",
+  "cases": [
+    {
+      "name": "empty_region",
+      "input": "# Title\n\n<!-- erdify:start -->\n<!-- erdify:end -->\n\nAfter.\n",
+      "output": "# Title\n\n<!-- erdify:start -->\n```mermaid\nerDiagram\n    User {\n        int id PK\n        str name\n        str email\n    }\n    Order {\n        int id PK\n        int user_id FK\n        float total\n    }\n    Order }o--|| User : \"user_id\"\n```\n<!-- erdify:end -->\n\nAfter.\n",
+      "region_before": "\n"
+    },
+    {
+      "name": "stale_region",
+      "input": "# T\n<!-- erdify:start -->\n```mermaid\nerDiagram\n```\n<!-- erdify:end -->\n",
+      "output": "# T\n<!-- erdify:start -->\n```mermaid\nerDiagram\n    User {\n        int id PK\n        str name\n        str email\n    }\n    Order {\n        int id PK\n        int user_id FK\n        float total\n    }\n    Order }o--|| User : \"user_id\"\n```\n<!-- erdify:end -->\n",
+      "region_before": "\n```mermaid\nerDiagram\n```\n"
+    },
+    {
+      "name": "markers_with_attributes",
+      "input": "<!--erdify:start  v=1 -->old<!--   erdify:end x -->\ntail\n",
+      "output": "<!--erdify:start  v=1 -->\n```mermaid\nerDiagram\n    User {\n        int id PK\n        str name\n        str email\n    }\n    Order {\n        int id PK\n        int user_id FK\n        float total\n    }\n    Order }o--|| User : \"user_id\"\n```\n<!--   erdify:end x -->\ntail\n",
+      "region_before": "old"
+    },
+    {
+      "name": "crlf_outside_region",
+      "input": "line one\r\n<!-- erdify:start -->\r\n<!-- erdify:end -->\r\nline two\r\n",
+      "output": "line one\r\n<!-- erdify:start -->\n```mermaid\nerDiagram\n    User {\n        int id PK\n        str name\n        str email\n    }\n    Order {\n        int id PK\n        int user_id FK\n        float total\n    }\n    Order }o--|| User : \"user_id\"\n```\n<!-- erdify:end -->\r\nline two\r\n",
+      "region_before": "\r\n"
+    },
+    {
+      "name": "error_missing_start",
+      "input": "<!-- erdify:end -->\n",
+      "error": "no '<!-- erdify:start -->' marker found"
+    },
+    {
+      "name": "error_missing_end",
+      "input": "<!-- erdify:start -->\n",
+      "error": "no '<!-- erdify:end -->' marker found"
+    },
+    {
+      "name": "error_duplicate_pair",
+      "input": "<!-- erdify:start --><!-- erdify:end -->\n<!-- erdify:start --><!-- erdify:end -->\n",
+      "error": "multiple erdify marker pairs found; expected exactly one"
+    },
+    {
+      "name": "error_reversed",
+      "input": "<!-- erdify:end -->\n<!-- erdify:start -->\n",
+      "error": "erdify:end marker appears before erdify:start"
+    }
+  ]
+}

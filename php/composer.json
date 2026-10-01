@@ -1,0 +1,45 @@
+{
+    "name": "mrseams/erdify-php",
+    "description": "Generate PlantUML and Mermaid ERDs from Laravel migrations and Eloquent models, without running your code. A PHP port of erdify.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["erd", "laravel", "eloquent", "migrations", "plantuml", "mermaid", "diagram", "database", "erdify"],
+    "homepage": "https://github.com/Mrseams/erdify-ports",
+    "support": {
+        "issues": "https://github.com/Mrseams/erdify-ports/issues",
+        "source": "https://github.com/Mrseams/erdify-ports/tree/main/php"
+    },
+    "authors": [
+        { "name": "Mrseams" }
+    ],
+    "require": {
+        "php": "^8.2",
+        "nikic/php-parser": "^5.0",
+        "doctrine/inflector": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5 || ^12.0"
+    },
+    "suggest": {
+        "illuminate/console": "Adds the `php artisan erdify` command (auto-discovered in Laravel apps)."
+    },
+    "autoload": {
+        "psr-4": { "Mrseams\\Erdify\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Mrseams\\Erdify\\Tests\\": "tests/" }
+    },
+    "bin": ["bin/erdify"],
+    "extra": {
+        "laravel": {
+            "providers": ["Mrseams\\Erdify\\Laravel\\ErdifyServiceProvider"]
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}

@@ -1,0 +1,12 @@
+erDiagram
+    User {
+        int id PK
+        str name
+        str email
+    }
+    Order {
+        int id PK
+        int user_id FK
+        float total
+    }
+    Order }o--|| User : "user_id"

@@ -1,0 +1,652 @@
+{
+  "title": "Shop ERD",
+  "entities": [
+    {
+      "name": "User",
+      "table_name": "users",
+      "source": "eloquent",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "full_name",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": true,
+          "default": null
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "email_verified_at",
+          "type": "timestamp",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "remember_token",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": [
+        {
+          "target": "Tag",
+          "type": "many_to_many",
+          "attribute": "tags"
+        },
+        {
+          "target": "Order",
+          "type": "many",
+          "attribute": "orders"
+        },
+        {
+          "target": "Role",
+          "type": "many_to_many",
+          "attribute": "roles"
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "table_name": "categories",
+      "source": "eloquent",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": true,
+          "default": null
+        },
+        {
+          "name": "parent_id",
+          "type": "bigint",
+          "primary_key": false,
+          "foreign_key": true,
+          "nullable": true,
+          "foreign_table": "categories.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": [
+        {
+          "target": "Category",
+          "type": "one",
+          "attribute": "parent"
+        },
+        {
+          "target": "Category",
+          "type": "many",
+          "attribute": "children"
+        },
+        {
+          "target": "Product",
+          "type": "many",
+          "attribute": "products"
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "table_name": "products",
+      "source": "eloquent",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "category_id",
+          "type": "bigint",
+          "primary_key": false,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "categories.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "ProductStatus",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": "ProductStatus.Draft"
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": [
+        {
+          "target": "Tag",
+          "type": "many_to_many",
+          "attribute": "tags"
+        },
+        {
+          "target": "Category",
+          "type": "one",
+          "attribute": "category"
+        },
+        {
+          "target": "Order",
+          "type": "many_to_many",
+          "attribute": "orders"
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "table_name": "orders",
+      "source": "eloquent",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "customer_id",
+          "type": "bigint",
+          "primary_key": false,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "users.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "state",
+          "type": "OrderState",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": "'pending'"
+        },
+        {
+          "name": "total_cents",
+          "type": "bigint",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": "0"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": [
+        {
+          "target": "User",
+          "type": "one",
+          "attribute": "customer"
+        },
+        {
+          "target": "Product",
+          "type": "many_to_many",
+          "attribute": "products"
+        }
+      ]
+    },
+    {
+      "name": "order_product",
+      "table_name": "order_product",
+      "source": "migration",
+      "is_link_table": true,
+      "fields": [
+        {
+          "name": "order_id",
+          "type": "uuid",
+          "primary_key": true,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "orders.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "product_id",
+          "type": "bigint",
+          "primary_key": true,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "products.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "Tag",
+      "table_name": "tags",
+      "source": "eloquent",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": [
+        {
+          "target": "Product",
+          "type": "many_to_many",
+          "attribute": "products"
+        }
+      ]
+    },
+    {
+      "name": "taggables",
+      "table_name": "taggables",
+      "source": "migration",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "tag_id",
+          "type": "bigint",
+          "primary_key": false,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "tags.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "taggable_type",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": true,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "taggable_id",
+          "type": "bigint",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": true,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "Role",
+      "table_name": "roles",
+      "source": "eloquent",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": true,
+          "default": null
+        }
+      ],
+      "relationships": [
+        {
+          "target": "User",
+          "type": "many_to_many",
+          "attribute": "users"
+        }
+      ]
+    },
+    {
+      "name": "role_user",
+      "table_name": "role_user",
+      "source": "migration",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "role_id",
+          "type": "bigint",
+          "primary_key": false,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "roles.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "user_id",
+          "type": "bigint",
+          "primary_key": false,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "users.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "AuditLog",
+      "table_name": "audit_logs",
+      "source": "eloquent",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "user_id",
+          "type": "bigint",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "event",
+          "type": "string",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": [
+        {
+          "target": "User",
+          "type": "one",
+          "attribute": "user"
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "OrderState",
+      "values": [
+        "Pending",
+        "Paid",
+        "Shipped"
+      ]
+    },
+    {
+      "name": "ProductStatus",
+      "values": [
+        "Draft",
+        "Published",
+        "Archived"
+      ]
+    }
+  ]
+}

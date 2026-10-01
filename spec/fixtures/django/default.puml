@@ -1,0 +1,85 @@
+@startuml Database ERD
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+!define foreign_key(x) <color:#aaaaaa><&key></color> x
+!define column(x) <color:#efefef><&media-record></color> x
+
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam class {
+    BackgroundColor White
+    ArrowColor Gray
+    BorderColor Gray
+}
+
+' Enums
+
+enum Priority << (E,#FFCC00) >> {
+  LOW
+  HIGH
+}
+
+enum Status << (E,#FFCC00) >> {
+  DRAFT
+  PUBLISHED
+}
+
+' Entities
+
+entity "author" as Author {
+  primary_key(id) : int
+  column(created_at) : datetime
+  column(updated_at) : datetime
+  column(name) : str
+  column(bio) : str
+}
+
+entity "profile" as Profile {
+  primary_key(id) : int
+  column(website) : str
+  column(preferences) : JSONField
+}
+
+entity "tag" as Tag {
+  primary_key(id) : int
+  column(label) : str
+}
+
+entity "blog_post" as Post {
+  primary_key(id) : int
+  column(created_at) : datetime
+  column(updated_at) : datetime
+  column(title) : str
+  foreign_key(author_id) : int
+  column(status) : Status
+  column(priority) : Priority
+}
+
+entity "group" as Group {
+  primary_key(id) : int
+  column(name) : str
+}
+
+entity "membership" as Membership {
+  primary_key(id) : int
+  foreign_key(author_id) : int
+  foreign_key(group_id) : int
+  column(role) : str
+}
+
+entity "category" as Category {
+  primary_key(id) : int
+  column(name) : str
+  foreign_key(parent_id) : int?
+}
+
+' Relationships
+
+Post }o--|| Author : "author_id"
+Membership }o--|| Author : "author_id"
+Membership }o--|| Group : "group_id"
+Category }o--|| Category : "parent_id"
+Profile ||--|| Author : "author"
+Post }o--o{ Tag : "tags"
+
+@enduml

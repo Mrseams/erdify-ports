@@ -1,0 +1,34 @@
+@startuml Database ERD
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+!define foreign_key(x) <color:#aaaaaa><&key></color> x
+!define column(x) <color:#efefef><&media-record></color> x
+
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam class {
+    BackgroundColor White
+    ArrowColor Gray
+    BorderColor Gray
+}
+
+' Entities
+
+entity "warehouse" as Warehouse {
+  primary_key(id) : int
+  column(name) : str
+  column(location) : str? = None
+}
+
+entity "item" as Item {
+  primary_key(id) : int
+  foreign_key(warehouse_id) : int
+  column(label) : str
+  column(note) : str? = None
+}
+
+' Relationships
+
+Item }o--|| Warehouse : "warehouse_id"
+
+@enduml

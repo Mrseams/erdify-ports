@@ -1,0 +1,13 @@
+{
+  "upstream_source": "tests/fixtures/dataclasses",
+  "parse_options": {
+    "infer_keys": true
+  },
+  "title": "Database ERD",
+  "variants": {
+    "default": {
+      "include_enums": true,
+      "include_relationships": true
+    }
+  }
+}

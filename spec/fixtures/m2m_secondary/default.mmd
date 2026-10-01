@@ -1,0 +1,13 @@
+erDiagram
+    Post {
+        int id PK
+    }
+    Tag {
+        int id PK
+    }
+    PostTagLink {
+        int post_id PK,FK
+        int tag_id PK,FK
+    }
+    Post ||--o{ PostTagLink : "post_id"
+    PostTagLink }o--|| Tag : "tag_id"

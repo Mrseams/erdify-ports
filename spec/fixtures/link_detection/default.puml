@@ -1,0 +1,62 @@
+@startuml Database ERD
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+!define foreign_key(x) <color:#aaaaaa><&key></color> x
+!define column(x) <color:#efefef><&media-record></color> x
+
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam class {
+    BackgroundColor White
+    ArrowColor Gray
+    BorderColor Gray
+}
+
+' Entities
+
+entity "post" as Post {
+  primary_key(id) : int
+}
+
+entity "tag" as Tag {
+  primary_key(id) : int
+}
+
+entity "post_tag" as PostTag << (L, #AAFFAA) link >> {
+  primary_key(post_id) : int
+  primary_key(tag_id) : int
+}
+
+entity "link_preview" as LinkPreview {
+  primary_key(id) : int
+  column(url) : str
+  column(title) : str
+}
+
+entity "project" as Project {
+  primary_key(id) : int
+}
+
+entity "user" as User {
+  primary_key(id) : int
+}
+
+entity "role" as Role {
+  primary_key(id) : int
+}
+
+entity "project_membership" as ProjectMembership << (L, #AAFFAA) link >> {
+  primary_key(project_id) : int
+  primary_key(user_id) : int
+  primary_key(role_id) : int
+}
+
+' Relationships
+
+Post ||--o{ PostTag : "post_id"
+PostTag }o--|| Tag : "tag_id"
+Project ||--o{ ProjectMembership : "project_id"
+User ||--o{ ProjectMembership : "user_id"
+Role ||--o{ ProjectMembership : "role_id"
+
+@enduml

@@ -1,0 +1,19 @@
+{
+  "upstream_source": "tests/fixtures/ecommerce",
+  "parse_options": {},
+  "title": "E-Commerce ERD",
+  "variants": {
+    "default": {
+      "include_enums": true,
+      "include_relationships": true
+    },
+    "no-enums": {
+      "include_enums": false,
+      "include_relationships": true
+    },
+    "no-relationships": {
+      "include_enums": true,
+      "include_relationships": false
+    }
+  }
+}

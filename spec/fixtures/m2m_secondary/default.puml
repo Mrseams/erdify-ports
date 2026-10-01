@@ -1,0 +1,35 @@
+@startuml Database ERD
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+!define foreign_key(x) <color:#aaaaaa><&key></color> x
+!define column(x) <color:#efefef><&media-record></color> x
+
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam class {
+    BackgroundColor White
+    ArrowColor Gray
+    BorderColor Gray
+}
+
+' Entities
+
+entity "post" as Post {
+  primary_key(id) : int
+}
+
+entity "tag" as Tag {
+  primary_key(id) : int
+}
+
+entity "post_tag_link" as PostTagLink << (L, #AAFFAA) link >> {
+  primary_key(post_id) : int
+  primary_key(tag_id) : int
+}
+
+' Relationships
+
+Post ||--o{ PostTagLink : "post_id"
+PostTagLink }o--|| Tag : "tag_id"
+
+@enduml

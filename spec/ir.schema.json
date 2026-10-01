@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Mrseams/erdify-ports/spec/ir.schema.json",
+  "title": "erdify model",
+  "description": "The framework-neutral model every parser produces and every renderer consumes. Byte-compatible with the output of upstream `erdify --format json` (v0.14.1). Array order is significant: renderers iterate entities, fields, relationships and enum values in the order given.",
+  "type": "object",
+  "required": ["title", "entities", "enums"],
+  "additionalProperties": false,
+  "properties": {
+    "title": { "type": "string" },
+    "entities": { "type": "array", "items": { "$ref": "#/$defs/entity" } },
+    "enums": { "type": "array", "items": { "$ref": "#/$defs/enum" } }
+  },
+  "$defs": {
+    "entity": {
+      "type": "object",
+      "required": ["name", "table_name", "source", "is_link_table", "fields", "relationships"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Class name. Unique within the model; used as the diagram alias and as a relationship target."
+        },
+        "table_name": {
+          "type": "string",
+          "description": "Database table name. Foreign keys resolve against this, not against `name`."
+        },
+        "source": {
+          "type": "string",
+          "description": "Which parser produced the entity. Upstream values: sqlmodel, sqlalchemy, django, pydantic, dataclass, sql. Port values: eloquent (a table with an Eloquent model), migration (a Laravel table without a model), jpa, spring-data-jdbc. Renderers ignore it.",
+          "enum": [
+            "sqlmodel",
+            "sqlalchemy",
+            "django",
+            "pydantic",
+            "dataclass",
+            "sql",
+            "eloquent",
+            "migration",
+            "jpa",
+            "spring-data-jdbc"
+          ]
+        },
+        "is_link_table": {
+          "type": "boolean",
+          "description": "True for a join table: a composite primary key made entirely of foreign keys, with no other columns (at least two columns)."
+        },
+        "fields": { "type": "array", "items": { "$ref": "#/$defs/field" } },
+        "relationships": { "type": "array", "items": { "$ref": "#/$defs/relationship" } }
+      }
+    },
+    "field": {
+      "type": "object",
+      "required": [
+        "name",
+        "type",
+        "primary_key",
+        "foreign_key",
+        "nullable",
+        "foreign_table",
+        "index",
+        "unique",
+        "default"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "description": "Type as written in the source language (e.g. `int`, `str`, `bigint`, `Long`). May be dotted; renderers show the part after the last dot. May be empty when unknown."
+        },
+        "primary_key": { "type": "boolean" },
+        "foreign_key": { "type": "boolean" },
+        "nullable": { "type": "boolean" },
+        "foreign_table": {
+          "type": ["string", "null"],
+          "description": "`table.column` (or just `table`) the foreign key points to. Renderers use the part before the first dot."
+        },
+        "index": { "type": "boolean", "description": "Shown in JSON only, never drawn." },
+        "unique": { "type": "boolean" },
+        "default": {
+          "type": ["string", "null"],
+          "description": "Default value as source text. Renderers show the part after the last dot (`OrderStatus.PENDING` -> `PENDING`)."
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "required": ["target", "type", "attribute"],
+      "additionalProperties": false,
+      "properties": {
+        "target": { "type": "string", "description": "Target entity `name` (not table name)." },
+        "type": { "type": "string", "enum": ["one", "many", "one_to_one", "many_to_many"] },
+        "attribute": { "type": "string", "description": "Attribute or method name, used as the edge label." }
+      }
+    },
+    "enum": {
+      "type": "object",
+      "required": ["name", "values"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "values": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

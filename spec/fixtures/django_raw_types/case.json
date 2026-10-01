@@ -1,0 +1,13 @@
+{
+  "upstream_source": "tests/fixtures/django",
+  "parse_options": {
+    "django_raw_types": true
+  },
+  "title": "Database ERD",
+  "variants": {
+    "default": {
+      "include_enums": true,
+      "include_relationships": true
+    }
+  }
+}

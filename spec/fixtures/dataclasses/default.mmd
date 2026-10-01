@@ -1,0 +1,13 @@
+erDiagram
+    Warehouse {
+        int id
+        str name
+        str location "nullable, default None"
+    }
+    Item {
+        int id
+        int warehouse_id
+        str label
+        str note "nullable, default None"
+    }
+    Warehouse ||--o{ Item : "items"

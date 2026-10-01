@@ -1,0 +1,8 @@
+# Byte-exact fixtures: always LF, on every OS.
+* text=auto eol=lf
+spec/fixtures/** -text
+spec/inject/** -text
+php/tests/fixtures/**/expected.* -text
+*.png binary
+*.jar binary
+*.phar binary

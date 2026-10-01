@@ -1,0 +1,35 @@
+erDiagram
+    Post {
+        int id PK
+    }
+    Tag {
+        int id PK
+    }
+    PostTag {
+        int post_id PK,FK
+        int tag_id PK,FK
+    }
+    LinkPreview {
+        int id PK
+        str url
+        str title
+    }
+    Project {
+        int id PK
+    }
+    User {
+        int id PK
+    }
+    Role {
+        int id PK
+    }
+    ProjectMembership {
+        int project_id PK,FK
+        int user_id PK,FK
+        int role_id PK,FK
+    }
+    Post ||--o{ PostTag : "post_id"
+    PostTag }o--|| Tag : "tag_id"
+    Project ||--o{ ProjectMembership : "project_id"
+    User ||--o{ ProjectMembership : "user_id"
+    Role ||--o{ ProjectMembership : "role_id"

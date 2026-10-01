@@ -1,0 +1,55 @@
+erDiagram
+    Author {
+        BigAutoField id PK
+        DateTimeField created_at
+        DateTimeField updated_at
+        CharField name
+        TextField bio
+    }
+    Profile {
+        BigAutoField id PK
+        URLField website
+        JSONField preferences
+    }
+    Tag {
+        BigAutoField id PK
+        CharField label
+    }
+    Post {
+        BigAutoField id PK
+        DateTimeField created_at
+        DateTimeField updated_at
+        CharField title
+        BigAutoField author_id FK
+        Status status
+        Priority priority
+    }
+    Group {
+        BigAutoField id PK
+        CharField name
+    }
+    Membership {
+        BigAutoField id PK
+        BigAutoField author_id FK
+        BigAutoField group_id FK
+        CharField role
+    }
+    Category {
+        BigAutoField id PK
+        CharField name
+        BigAutoField parent_id FK "nullable"
+    }
+    Priority {
+        enum LOW
+        enum HIGH
+    }
+    Status {
+        enum DRAFT
+        enum PUBLISHED
+    }
+    Post }o--|| Author : "author_id"
+    Membership }o--|| Author : "author_id"
+    Membership }o--|| Group : "group_id"
+    Category }o--|| Category : "parent_id"
+    Profile ||--|| Author : "author"
+    Post }o--o{ Tag : "tags"

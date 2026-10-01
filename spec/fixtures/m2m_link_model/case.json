@@ -1,0 +1,11 @@
+{
+  "upstream_source": "tests/fixtures/m2m_link_model",
+  "parse_options": {},
+  "title": "Database ERD",
+  "variants": {
+    "default": {
+      "include_enums": true,
+      "include_relationships": true
+    }
+  }
+}

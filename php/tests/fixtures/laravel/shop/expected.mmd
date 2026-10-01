@@ -1,0 +1,85 @@
+erDiagram
+    User {
+        bigint id PK
+        string full_name
+        string email UK
+        string phone "nullable"
+        timestamp email_verified_at "nullable"
+        string password
+        string remember_token "nullable"
+        timestamp created_at "nullable"
+        timestamp updated_at "nullable"
+    }
+    Category {
+        bigint id PK
+        string name
+        string slug UK
+        bigint parent_id FK "nullable"
+    }
+    Product {
+        bigint id PK
+        bigint category_id FK
+        string name
+        decimal price
+        ProductStatus status "default Draft"
+        timestamp deleted_at "nullable"
+        timestamp created_at "nullable"
+        timestamp updated_at "nullable"
+    }
+    Order {
+        uuid id PK
+        bigint customer_id FK
+        OrderState state "default 'pending'"
+        bigint total_cents "default 0"
+        timestamp created_at "nullable"
+        timestamp updated_at "nullable"
+    }
+    order_product {
+        uuid order_id PK,FK
+        bigint product_id PK,FK
+    }
+    Tag {
+        bigint id PK
+        string name
+    }
+    taggables {
+        bigint tag_id FK
+        string taggable_type
+        bigint taggable_id
+    }
+    Role {
+        bigint id PK
+        string name UK
+    }
+    role_user {
+        bigint id PK
+        bigint role_id FK
+        bigint user_id FK
+    }
+    AuditLog {
+        bigint id PK
+        bigint user_id
+        string event
+    }
+    OrderState {
+        enum Pending
+        enum Paid
+        enum Shipped
+    }
+    ProductStatus {
+        enum Draft
+        enum Published
+        enum Archived
+    }
+    Category }o--|| Category : "parent_id"
+    Product }o--|| Category : "category_id"
+    Order }o--|| User : "customer_id"
+    taggables }o--|| Tag : "tag_id"
+    role_user }o--|| Role : "role_id"
+    role_user }o--|| User : "user_id"
+    Order ||--o{ order_product : "order_id"
+    order_product }o--|| Product : "product_id"
+    User }o--o{ Tag : "tags"
+    User }o--o{ Role : "roles"
+    Product }o--o{ Tag : "tags"
+    AuditLog }o--|| User : "user"

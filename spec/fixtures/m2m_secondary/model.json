@@ -1,0 +1,77 @@
+{
+  "title": "Database ERD",
+  "entities": [
+    {
+      "name": "Post",
+      "table_name": "post",
+      "source": "sqlalchemy",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "Tag",
+      "table_name": "tag",
+      "source": "sqlalchemy",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "PostTagLink",
+      "table_name": "post_tag_link",
+      "source": "sqlalchemy",
+      "is_link_table": true,
+      "fields": [
+        {
+          "name": "post_id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "post.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "tag_id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "tag.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    }
+  ],
+  "enums": []
+}

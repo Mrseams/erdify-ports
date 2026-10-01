@@ -1,0 +1,44 @@
+name: php-split
+
+# Packagist needs composer.json at the root of a repository, so php/ is mirrored
+# to the read-only repository Mrseams/erdify-php, with tags.
+#
+# One-time setup:
+#   1. Create the empty repository https://github.com/Mrseams/erdify-php
+#   2. Create a fine-grained token with "Contents: read and write" on that
+#      repository, and save it in this repository as the secret ERDIFY_PHP_TOKEN.
+#   3. Submit https://github.com/Mrseams/erdify-php on packagist.org.
+#
+# Release: push a tag named php-vX.Y.Z here; it is mirrored as vX.Y.Z.
+
+on:
+  push:
+    branches: [main]
+    paths: ["php/**"]
+    tags: ["php-v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Split php/ and push to Mrseams/erdify-php
+        env:
+          TOKEN: ${{ secrets.ERDIFY_PHP_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git subtree split --prefix=php -b php-split
+          remote="https://x-access-token:${TOKEN}@github.com/Mrseams/erdify-php.git"
+          git push "$remote" php-split:main --force
+          if [[ "$GITHUB_REF" == refs/tags/php-v* ]]; then
+            tag="${GITHUB_REF#refs/tags/php-}"
+            git tag "$tag" php-split
+            git push "$remote" "$tag"
+          fi

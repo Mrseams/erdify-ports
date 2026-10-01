@@ -1,0 +1,17 @@
+{
+  "upstream_source": "tests/fixtures/sql/ecommerce.sql",
+  "parse_options": {
+    "sql_dialect": "postgres"
+  },
+  "title": "E-Commerce ERD",
+  "variants": {
+    "default": {
+      "include_enums": true,
+      "include_relationships": true
+    },
+    "no-enums": {
+      "include_enums": false,
+      "include_relationships": true
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Database ERD</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>body{font-family:system-ui,sans-serif;margin:2rem;color:#222}h1{font-size:1.1rem;color:#555;font-weight:600}</style>
+</head>
+<body>
+  <h1>Database ERD</h1>
+  <pre class="mermaid">
+erDiagram
+    Author {
+        int id PK
+        datetime created_at
+        datetime updated_at
+        str name
+        str bio
+    }
+    Profile {
+        int id PK
+        str website
+        JSONField preferences
+    }
+    Tag {
+        int id PK
+        str label
+    }
+    Post {
+        int id PK
+        datetime created_at
+        datetime updated_at
+        str title
+        int author_id FK
+        Status status
+        Priority priority
+    }
+    Group {
+        int id PK
+        str name
+    }
+    Membership {
+        int id PK
+        int author_id FK
+        int group_id FK
+        str role
+    }
+    Category {
+        int id PK
+        str name
+        int parent_id FK "nullable"
+    }
+    Priority {
+        enum LOW
+        enum HIGH
+    }
+    Status {
+        enum DRAFT
+        enum PUBLISHED
+    }
+    Post }o--|| Author : "author_id"
+    Membership }o--|| Author : "author_id"
+    Membership }o--|| Group : "group_id"
+    Category }o--|| Category : "parent_id"
+    Profile ||--|| Author : "author"
+    Post }o--o{ Tag : "tags"
+  </pre>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+erDiagram
+    Post {
+        int id PK
+    }
+    Tag {
+        int id PK
+    }
+    post_tag {
+        unknown post_id PK,FK
+        unknown tag_id PK,FK
+    }
+    Post ||--o{ post_tag : "post_id"
+    post_tag }o--|| Tag : "tag_id"

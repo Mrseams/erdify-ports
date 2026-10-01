@@ -1,0 +1,118 @@
+@startuml Shop ERD
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+!define foreign_key(x) <color:#aaaaaa><&key></color> x
+!define column(x) <color:#efefef><&media-record></color> x
+
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam class {
+    BackgroundColor White
+    ArrowColor Gray
+    BorderColor Gray
+}
+
+' Enums
+
+enum OrderState << (E,#FFCC00) >> {
+  Pending
+  Paid
+  Shipped
+}
+
+enum ProductStatus << (E,#FFCC00) >> {
+  Draft
+  Published
+  Archived
+}
+
+' Entities
+
+entity "users" as User {
+  primary_key(id) : bigint
+  column(full_name) : string
+  column(email) : string UK
+  column(phone) : string?
+  column(email_verified_at) : timestamp?
+  column(password) : string
+  column(remember_token) : string?
+  column(created_at) : timestamp?
+  column(updated_at) : timestamp?
+}
+
+entity "categories" as Category {
+  primary_key(id) : bigint
+  column(name) : string
+  column(slug) : string UK
+  foreign_key(parent_id) : bigint?
+}
+
+entity "products" as Product {
+  primary_key(id) : bigint
+  foreign_key(category_id) : bigint
+  column(name) : string
+  column(price) : decimal
+  column(status) : ProductStatus = Draft
+  column(deleted_at) : timestamp?
+  column(created_at) : timestamp?
+  column(updated_at) : timestamp?
+}
+
+entity "orders" as Order {
+  primary_key(id) : uuid
+  foreign_key(customer_id) : bigint
+  column(state) : OrderState = 'pending'
+  column(total_cents) : bigint = 0
+  column(created_at) : timestamp?
+  column(updated_at) : timestamp?
+}
+
+entity "order_product" as order_product << (L, #AAFFAA) link >> {
+  primary_key(order_id) : uuid
+  primary_key(product_id) : bigint
+}
+
+entity "tags" as Tag {
+  primary_key(id) : bigint
+  column(name) : string
+}
+
+entity "taggables" as taggables {
+  foreign_key(tag_id) : bigint
+  column(taggable_type) : string
+  column(taggable_id) : bigint
+}
+
+entity "roles" as Role {
+  primary_key(id) : bigint
+  column(name) : string UK
+}
+
+entity "role_user" as role_user {
+  primary_key(id) : bigint
+  foreign_key(role_id) : bigint
+  foreign_key(user_id) : bigint
+}
+
+entity "audit_logs" as AuditLog {
+  primary_key(id) : bigint
+  column(user_id) : bigint
+  column(event) : string
+}
+
+' Relationships
+
+Category }o--|| Category : "parent_id"
+Product }o--|| Category : "category_id"
+Order }o--|| User : "customer_id"
+taggables }o--|| Tag : "tag_id"
+role_user }o--|| Role : "role_id"
+role_user }o--|| User : "user_id"
+Order ||--o{ order_product : "order_id"
+order_product }o--|| Product : "product_id"
+User }o--o{ Tag : "tags"
+User }o--o{ Role : "roles"
+Product }o--o{ Tag : "tags"
+AuditLog }o--|| User : "user"
+
+@enduml

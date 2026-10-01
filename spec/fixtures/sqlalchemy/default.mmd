@@ -1,0 +1,35 @@
+erDiagram
+    Author {
+        str created_at
+        str updated_at
+        int id PK
+        str name
+        str email
+        str bio "nullable, default None"
+        bool is_active "default True"
+    }
+    Post {
+        str created_at
+        str updated_at
+        int id PK
+        int author_id FK
+        str title
+        PostStatus status "default DRAFT"
+        str summary "nullable, default None"
+    }
+    Tag {
+        int id PK
+        str label
+    }
+    PostTagLink {
+        int post_id PK,FK
+        int tag_id PK,FK
+    }
+    PostStatus {
+        enum DRAFT
+        enum PUBLISHED
+        enum ARCHIVED
+    }
+    Post }o--|| Author : "author_id"
+    Post ||--o{ PostTagLink : "post_id"
+    PostTagLink }o--|| Tag : "tag_id"

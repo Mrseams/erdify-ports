@@ -1,0 +1,172 @@
+{
+  "title": "Database ERD",
+  "entities": [
+    {
+      "name": "AuthorOut",
+      "table_name": "author_out",
+      "source": "pydantic",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "BookOut",
+      "table_name": "book_out",
+      "source": "pydantic",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "author_id",
+          "type": "int",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "TimestampedOut",
+      "table_name": "timestamped_out",
+      "source": "pydantic",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "created_at",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "ReviewOut",
+      "table_name": "review_out",
+      "source": "pydantic",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "created_at",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "rating",
+          "type": "int",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "QualifiedOut",
+      "table_name": "qualified_out",
+      "source": "pydantic",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "note",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        }
+      ],
+      "relationships": []
+    }
+  ],
+  "enums": []
+}

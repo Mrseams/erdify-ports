@@ -1,0 +1,23 @@
+erDiagram
+    EmptyEntity {
+        int id PK
+    }
+    EntityWithPositionalDefault {
+        int id PK
+        str status "default 'pending'"
+        PaymentMethod payment "default CREDIT_CARD"
+    }
+    LinkTableWithThreeKeys {
+        int entity_a_id PK,FK
+        int entity_b_id PK,FK
+        int entity_c_id PK,FK
+    }
+    EntityWithNoTableName {
+        int id PK
+        str name
+    }
+    PaymentMethod {
+        enum CREDIT_CARD
+        enum PAYPAL
+        enum BANK_TRANSFER
+    }

@@ -1,0 +1,18 @@
+erDiagram
+    Article {
+        datetime created_at
+        datetime updated_at "nullable, default None"
+        int id PK
+        str title
+        str content
+        bool published "default False"
+    }
+    Comment {
+        datetime created_at
+        datetime updated_at "nullable, default None"
+        int id PK
+        int article_id FK
+        str author_name
+        str body
+    }
+    Comment }o--|| Article : "article_id"

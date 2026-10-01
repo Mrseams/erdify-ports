@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edge Cases ERD</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>body{font-family:system-ui,sans-serif;margin:2rem;color:#222}h1{font-size:1.1rem;color:#555;font-weight:600}</style>
+</head>
+<body>
+  <h1>Edge Cases ERD</h1>
+  <pre class="mermaid">
+erDiagram
+    EmptyEntity {
+        int id PK
+    }
+    EntityWithPositionalDefault {
+        int id PK
+        str status "default 'pending'"
+        PaymentMethod payment "default CREDIT_CARD"
+    }
+    LinkTableWithThreeKeys {
+        int entity_a_id PK,FK
+        int entity_b_id PK,FK
+        int entity_c_id PK,FK
+    }
+    EntityWithNoTableName {
+        int id PK
+        str name
+    }
+    PaymentMethod {
+        enum CREDIT_CARD
+        enum PAYPAL
+        enum BANK_TRANSFER
+    }
+  </pre>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
+</body>
+</html>

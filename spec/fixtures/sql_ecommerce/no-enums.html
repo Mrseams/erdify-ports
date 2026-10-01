@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>E-Commerce ERD</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>body{font-family:system-ui,sans-serif;margin:2rem;color:#222}h1{font-size:1.1rem;color:#555;font-weight:600}</style>
+</head>
+<body>
+  <h1>E-Commerce ERD</h1>
+  <pre class="mermaid">
+erDiagram
+    customer {
+        int id PK "nullable"
+        varchar_255 email
+        varchar_120 name "nullable"
+    }
+    order {
+        int id PK "nullable"
+        int customer_id FK
+        order_status status "nullable, default 'pending'"
+        decimal total "nullable"
+    }
+    product {
+        int id PK "nullable"
+        varchar_64 sku
+    }
+    customer_profile {
+        int id PK "nullable"
+        int customer_id FK,UK
+        text bio "nullable"
+    }
+    order_item {
+        int order_id PK,FK "nullable"
+        int product_id PK,FK "nullable"
+    }
+    order }o--|| customer : "customer_id"
+    customer_profile |o--|| customer : "customer_id"
+    order ||--o{ order_item : "order_id"
+    order_item }o--|| product : "product_id"
+  </pre>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
+</body>
+</html>

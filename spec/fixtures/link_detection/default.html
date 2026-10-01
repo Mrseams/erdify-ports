@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Database ERD</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>body{font-family:system-ui,sans-serif;margin:2rem;color:#222}h1{font-size:1.1rem;color:#555;font-weight:600}</style>
+</head>
+<body>
+  <h1>Database ERD</h1>
+  <pre class="mermaid">
+erDiagram
+    Post {
+        int id PK
+    }
+    Tag {
+        int id PK
+    }
+    PostTag {
+        int post_id PK,FK
+        int tag_id PK,FK
+    }
+    LinkPreview {
+        int id PK
+        str url
+        str title
+    }
+    Project {
+        int id PK
+    }
+    User {
+        int id PK
+    }
+    Role {
+        int id PK
+    }
+    ProjectMembership {
+        int project_id PK,FK
+        int user_id PK,FK
+        int role_id PK,FK
+    }
+    Post ||--o{ PostTag : "post_id"
+    PostTag }o--|| Tag : "tag_id"
+    Project ||--o{ ProjectMembership : "project_id"
+    User ||--o{ ProjectMembership : "user_id"
+    Role ||--o{ ProjectMembership : "role_id"
+  </pre>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
+</body>
+</html>

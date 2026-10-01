@@ -1,0 +1,11 @@
+{
+  "upstream_source": "tests/fixtures/inheritance",
+  "parse_options": {},
+  "title": "Inheritance ERD",
+  "variants": {
+    "default": {
+      "include_enums": true,
+      "include_relationships": true
+    }
+  }
+}

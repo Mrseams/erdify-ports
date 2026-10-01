@@ -1,0 +1,113 @@
+{
+  "title": "Database ERD",
+  "entities": [
+    {
+      "name": "Warehouse",
+      "table_name": "warehouse",
+      "source": "dataclass",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "location",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": "None"
+        }
+      ],
+      "relationships": [
+        {
+          "target": "Item",
+          "type": "many",
+          "attribute": "items"
+        }
+      ]
+    },
+    {
+      "name": "Item",
+      "table_name": "item",
+      "source": "dataclass",
+      "is_link_table": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "warehouse_id",
+          "type": "int",
+          "primary_key": false,
+          "foreign_key": true,
+          "nullable": false,
+          "foreign_table": "warehouse.id",
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "label",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": false,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": null
+        },
+        {
+          "name": "note",
+          "type": "str",
+          "primary_key": false,
+          "foreign_key": false,
+          "nullable": true,
+          "foreign_table": null,
+          "index": false,
+          "unique": false,
+          "default": "None"
+        }
+      ],
+      "relationships": [
+        {
+          "target": "Warehouse",
+          "type": "one",
+          "attribute": "warehouse"
+        }
+      ]
+    }
+  ],
+  "enums": []
+}

@@ -1,0 +1,20 @@
+# Python oracle
+oracle/.cache/
+oracle/.venv/
+__pycache__/
+
+# PHP
+php/vendor/
+php/composer.lock
+php/.phpunit.cache/
+*.phar
+
+# Java
+java/**/target/
+java/**/build/
+java/.gradle/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store

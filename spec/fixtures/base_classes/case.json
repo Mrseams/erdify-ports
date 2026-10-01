@@ -1,0 +1,15 @@
+{
+  "upstream_source": "tests/fixtures/base_classes",
+  "parse_options": {
+    "base_classes": [
+      "Schema"
+    ]
+  },
+  "title": "Database ERD",
+  "variants": {
+    "default": {
+      "include_enums": true,
+      "include_relationships": true
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Database ERD</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>body{font-family:system-ui,sans-serif;margin:2rem;color:#222}h1{font-size:1.1rem;color:#555;font-weight:600}</style>
+</head>
+<body>
+  <h1>Database ERD</h1>
+  <pre class="mermaid">
+erDiagram
+    Post {
+        int id PK
+    }
+    Tag {
+        int id PK
+    }
+    post_tag {
+        unknown post_id PK,FK
+        unknown tag_id PK,FK
+    }
+    Post ||--o{ post_tag : "post_id"
+    post_tag }o--|| Tag : "tag_id"
+  </pre>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
+</body>
+</html>

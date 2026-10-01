@@ -1,0 +1,12 @@
+[project]
+name = "erdify-oracle"
+version = "0.1.0"
+description = "Renders reference output with the real Python erdify, so the PHP and Java ports can be checked against it."
+requires-python = ">=3.11"
+# Pinned on purpose: the golden fixtures in spec/fixtures/ are the output of
+# exactly this version. Bump it together with UPSTREAM_TAG in build_fixtures.py
+# and spec/VERSION, then regenerate and review the diff.
+dependencies = ["erdify[sql]==0.14.1", "jsonschema>=4.23"]
+
+[tool.uv]
+package = false

@@ -1,0 +1,13 @@
+erDiagram
+    RestaurantStaffLink {
+        UUID restaurant_id PK,FK
+        UUID staff_id PK,FK
+    }
+    Restaurant {
+        UUID id PK
+    }
+    Staff {
+        UUID id PK
+    }
+    Restaurant ||--o{ RestaurantStaffLink : "restaurant_id"
+    RestaurantStaffLink }o--|| Staff : "staff_id"

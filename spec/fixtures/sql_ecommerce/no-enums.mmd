@@ -1,0 +1,29 @@
+erDiagram
+    customer {
+        int id PK "nullable"
+        varchar_255 email
+        varchar_120 name "nullable"
+    }
+    order {
+        int id PK "nullable"
+        int customer_id FK
+        order_status status "nullable, default 'pending'"
+        decimal total "nullable"
+    }
+    product {
+        int id PK "nullable"
+        varchar_64 sku
+    }
+    customer_profile {
+        int id PK "nullable"
+        int customer_id FK,UK
+        text bio "nullable"
+    }
+    order_item {
+        int order_id PK,FK "nullable"
+        int product_id PK,FK "nullable"
+    }
+    order }o--|| customer : "customer_id"
+    customer_profile |o--|| customer : "customer_id"
+    order ||--o{ order_item : "order_id"
+    order_item }o--|| product : "product_id"

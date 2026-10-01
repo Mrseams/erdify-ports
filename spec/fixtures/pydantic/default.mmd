@@ -1,0 +1,21 @@
+erDiagram
+    Identifiable {
+        int id
+    }
+    Customer {
+        int id
+        str name
+        str email "nullable, default None"
+    }
+    Invoice {
+        int id
+        int customer_id
+        Priority priority
+        float amount
+        str note "nullable, default None"
+    }
+    Priority {
+        enum LOW
+        enum HIGH
+    }
+    Customer ||--o{ Invoice : "invoices"
